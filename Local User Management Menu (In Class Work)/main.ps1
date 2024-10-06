@@ -181,15 +181,14 @@ while($operation){
     #              - Do not forget to update prompt and option numbers
     elseif($choice -eq 10){
         $daysBack = Read-Host -Prompt "Please enter how far back to check"
-        $failedLogins = getFailedLogins $daysBack
-        $userFailures = $failedLogins | Group-Object -Property User | Where-Object { $_.Count -gt 10 }
-        $userFailures | ForEach-Object { Write-Host "User $($_.Name) is at risk with $($_.Count) login failures" }
+        $atRiskUsers = getAtRiskUsers $daysBack
+        $atRiskUsers | ForEach-Object { Write-Host "User $($_.Name) is at risk with $($_.Count) login failures" }
     }
 
     # TODO: If user enters anything other than listed choices, e.g. a number that is not in the menu   
     #       or a character that should not be accepted. Give a proper message to the user and prompt again.
     else{
-        Write-Host "please input a number 1-10"
+        Write-Host "Selection failed. Please input a number 1-10"
         continue
     }
 

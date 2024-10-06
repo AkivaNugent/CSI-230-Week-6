@@ -65,7 +65,6 @@ function getFailedLogins($timeBack){
     return $failedloginsTable
 } # End of function getFailedLogins
 
-
 function getAtRiskUsers ($daysBack) {
     $failedLogins = getFailedLogins $daysBack
     $atRiskUsers = $failedLogins | Group-Object -Property User | Where-Object { $_.Count -gt 10 }
